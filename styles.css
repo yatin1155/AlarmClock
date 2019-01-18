@@ -1,0 +1,27 @@
+.navbar-default {
+    background-color: #CFD8DC;
+    border-color: #0288D1;
+}
+.navbar-default .navbar-brand {
+    color: #0288D1;
+}
+.bottomNav .navbar-header{
+    float: none;
+}
+.bottomNav .left{
+    float: left;
+}
+.bottomNav .right{
+    float: right;
+}
+#clock.light {
+    background-color: #f3f3f3;
+    color: #272e38;
+}
+#clock {
+    width: 500px;
+    padding: 40px;
+    height: 180px;
+    margin: 200px auto 60px;
+    position: relative;
+}
