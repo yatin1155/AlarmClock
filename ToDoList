@@ -1,9 +1,9 @@
 Screen 2 - Alarm List
 
 
-This will list all the Alarms set by the user(upcoming should come on the top)
-Alarms in off mode are distinguishable
+(upcoming should come on the top)
+
 For Alarms set for all days should show as Everyday, For Weekdays as Weekdays and for Weekend as weekends, and with specific day/s and label
 Users should be able to set the alarm on/off from this list
-Clicking on "Add" will let the users set a new Alarm
+
 
