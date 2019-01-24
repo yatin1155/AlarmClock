@@ -453,3 +453,12 @@
     margin-top:10px;
   }
   
+  .hideClock{
+    display: none;
+  }
+  .visibleClock {
+    display: block;
+  }
+  .removeItem{
+    cursor: pointer;
+  }
