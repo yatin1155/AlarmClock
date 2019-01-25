@@ -462,3 +462,7 @@
   .removeItem{
     cursor: pointer;
   }
+
+  #alarm-ring{
+    display: none;
+  }

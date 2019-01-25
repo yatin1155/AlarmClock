@@ -1,6 +1,7 @@
 var clockModule = (function () {
     var $clock = $("#clock");
     var mainClockInterval;
+    var alarmTimeoutFn;
     var EmptyClock = () => {
         $clock.html("");
     }
@@ -43,7 +44,7 @@ var clockModule = (function () {
 
     var alarmArr = [
         {
-            "Time": "06:20 PM",
+            "Time": "03:16 PM",
             "enabled": true,
             "label": "Morning walk",
             "dayArr": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -96,7 +97,6 @@ var clockModule = (function () {
 
         $.each(alarmArr,(k,v)=>{
 
-            debugger;
 
             let str = `
             <li data-attr-id="${k}"  class="item ${editNode === true ? 'edit':''}  ${v.enabled == false && editNode === true?' off':'' }">
@@ -115,13 +115,27 @@ var clockModule = (function () {
         return itemArr;
     }
 
+    var alarmSetTimeout =()=>{
+        var getCurrentTime =(function(){
+            return moment().format('hh:mm A');
+        })();
+
+
+        var recentAlarmTime = alarmArr[0]['Time'];
+        var getDifference =(getCurrentTime,recentAlarmTime) =>{
+
+            return new Date('1970/01/01 ' + recentAlarmTime) - new Date('1970/01/01 ' + getCurrentTime);
+
+        };
+
+        var timeDiff = getDifference(getCurrentTime,recentAlarmTime);
+
+        alarmTimeoutFn = setTimeout(function(){ alert("Hello") }, timeDiff)
+
+    }
 
     var drawAlarm = () => {
 
-        
-        var getTimestamp = () => {
-
-        }
         var drawHtml = () => {
 
             let Items = getItems({"mode":"View"}).join("");
@@ -133,7 +147,7 @@ var clockModule = (function () {
                 </div>
                 <div class="page">
                     <!-- show this when no alarms are set -->
-                    <div class="clock">
+                    <div class="clock hideClock">
                     <p>No Alarms set</p>
                     </div>
                         <ul class="list">
@@ -153,6 +167,7 @@ var clockModule = (function () {
         }
 
         drawHtml();
+        alarmSetTimeout();
         EventListeners();
     };
     var EditAlarm = () => {
@@ -192,13 +207,13 @@ var clockModule = (function () {
                 <p>
                 <select id="hours">
                   <option value="" disabled selected>HH</option>
-                  <option value=0>0</option><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option><option value=10>10</option><option value=11>11</option><option value=12>12</option>
+                  <option value=00>00</option><option value=01>01</option><option value=02>02</option><option value=03>03</option><option value=04>04</option><option value=05>05</option><option value=06>06</option><option value=07>07</option><option value=08>08</option><option value=09>09</option><option value=10>10</option><option value=11>11</option><option value=12>12</option>
                 </select>
                 <select id="minutes">
                   <option value="" disabled selected>MM</option>
-                  <option value=0>0</option><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option><option value=10>10</option><option value=11>11</option><option value=12>12</option><option value=13>13</option><option value=14>14</option><option value=15>15</option><option value=16>16</option><option value=17>17</option><option value=18>18</option><option value=19>19</option><option value=20>20</option><option value=21>21</option><option value=22>22</option><option value=23>23</option><option value=24>24</option><option value=25>25</option><option value=26>26</option><option value=27>27</option><option value=28>28</option><option value=29>29</option><option value=30>30</option><option value=31>31</option><option value=32>32</option><option value=33>33</option><option value=34>34</option><option value=35>35</option><option value=36>36</option><option value=37>37</option><option value=38>38</option><option value=39>39</option><option value=40>40</option><option value=41>41</option><option value=42>42</option><option value=43>43</option><option value=44>44</option><option value=45>45</option><option value=46>46</option><option value=47>47</option><option value=48>48</option><option value=49>49</option><option value=50>50</option><option value=51>51</option><option value=52>52</option><option value=53>53</option><option value=54>54</option><option value=55>55</option><option value=56>56</option><option value=57>57</option><option value=58>58</option><option value=59>59</option><option value=60>60</option>
+                  <option value=00>00</option><option value=01>01</option><option value=02>02</option><option value=03>03</option><option value=04>04</option><option value=05>05</option><option value=06>06</option><option value=07>07</option><option value=08>08</option><option value=09>09</option><option value=10>10</option><option value=11>11</option><option value=12>12</option><option value=13>13</option><option value=14>14</option><option value=15>15</option><option value=16>16</option><option value=17>17</option><option value=18>18</option><option value=19>19</option><option value=20>20</option><option value=21>21</option><option value=22>22</option><option value=23>23</option><option value=24>24</option><option value=25>25</option><option value=26>26</option><option value=27>27</option><option value=28>28</option><option value=29>29</option><option value=30>30</option><option value=31>31</option><option value=32>32</option><option value=33>33</option><option value=34>34</option><option value=35>35</option><option value=36>36</option><option value=37>37</option><option value=38>38</option><option value=39>39</option><option value=40>40</option><option value=41>41</option><option value=42>42</option><option value=43>43</option><option value=44>44</option><option value=45>45</option><option value=46>46</option><option value=47>47</option><option value=48>48</option><option value=49>49</option><option value=50>50</option><option value=51>51</option><option value=52>52</option><option value=53>53</option><option value=54>54</option><option value=55>55</option><option value=56>56</option><option value=57>57</option><option value=58>58</option><option value=59>59</option><option value=60>60</option>
                 </select>
-                <select>
+                <select id="timeType">
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
                 </select>
@@ -206,13 +221,13 @@ var clockModule = (function () {
                 
                   <p class="item select selected">
                     <label href="#" for="Snooze">
-                      <input type="checkbox" checked="">
+                      <input type="checkbox" id="snoozeBtn"checked="">
                       <span>Snooze</span>
                     </label>
                   </p>
                 <p class="item select selected">
                     <label href="#" for="Snooze">
-                      <input type="text" value="">
+                      <input type="text" id="alarmlabel" value="">
                       <span>Label</span>
                     </label>
                   </p>
@@ -221,7 +236,7 @@ var clockModule = (function () {
               </div>  
             
             <div class="content-block-title">Repeat</div>
-            <ul class="list">
+            <ul class="list" id="repeteSelection">
                   <li class="item select selected">
                     <label href="#" for="Monday">
                       <input type="checkbox" id="Monday">
@@ -288,9 +303,9 @@ var clockModule = (function () {
           </div>
           <div class="action">
             <!-- show this if you are adding alarm -->
-            <a href="#" data-panel="left" class="button open-panel">Save Alarm</a>
+            <a  id="saveNew" data-panel="left" class="button open-panel">Save Alarm</a>
             <!-- show this if you are editing alarm -->
-            <a href="#" data-panel="left" class="button open-panel danger">Delete Alarm</a>
+            <a id="deleteNew" data-panel="left" class="button open-panel danger">Delete Alarm</a>
           </div>
             `;
 
@@ -306,6 +321,7 @@ var clockModule = (function () {
     var updateAlarmList = (itemObj) =>{
         //Used to add the new obj to alarm list => Sort the array based on time
 
+        debugger
         var sortArry = (a,b) =>{
             return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
         };
@@ -320,6 +336,8 @@ var clockModule = (function () {
 
 
         }
+
+        alarmSetTimeout();
     }
 
     var updateItem = (indexItem,updateObj,returnStatus= false) =>{
@@ -341,6 +359,58 @@ var clockModule = (function () {
 
     }
 
+    var makeObj =()=>{
+        //fetches the value from all the text fields 
+
+        var getNewTime = () =>{
+
+            // {
+            //     "Time": "06:20 PM",
+            //     "enabled": true,
+            //     "label": "Morning walk",
+            //     "dayArr": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            //     "snooze": {
+            //         "status": true,
+            //         "sound": "Radar"
+            //     }
+            // }
+            let time = "";
+            time += $("#hours").val()+":";
+            time += $("#minutes").val()+" ";
+            time += $("#timeType").val();
+
+
+            return time;
+        }
+
+        let getSnoozData = ()=>{
+            let obj={};
+            obj["status"] = ($("#snoozeBtn").filter(':checked').length == 1)?"true":"false";
+            obj["sound"] = ($("#Beep").filter(':checked').length == 1)?"Beep":"None";
+
+            return obj;
+        }
+
+        let getDataArr =() =>{
+
+            let arrToReturn =[];
+            $("#repeteSelection input[type='checkbox']").each((k,v)=>{
+              if($(v).filter(':checked').length == 1){
+                arrToReturn.push($(v).attr("id"));
+              }
+            })
+            return arrToReturn;
+        }
+        let newObj = {};
+        newObj["Time"] = getNewTime();
+        newObj["snooze"]= getSnoozData();
+        newObj["enabled"] = true;
+        newObj["label"] = $("#alarmlabel").val();
+        newObj["dayArr"] = getDataArr();
+
+        return newObj;
+
+    }
     var EventListeners = () => {
 
         $(".alarmBtn,.doneBtn,.cancel").off("click");
@@ -397,11 +467,13 @@ var clockModule = (function () {
            
         });
 
+        $("#saveNew").off("click");
+        $("#saveNew").on("click",()=>{
 
-        // $(".item.edit:not('.item.edit .removeItem')").off("click");
-        // $(".item.edit:not('.item.edit .removeItem')").on("click",()=>{
-        //     console.log("clicked");
-        // });
+            let dataObj = makeObj();
+            updateAlarmList(dataObj);
+
+        })
 
     }
     return {
